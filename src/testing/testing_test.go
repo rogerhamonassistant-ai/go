@@ -332,7 +332,13 @@ func TestChdir(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	rel, err := filepath.Rel(oldDir, tmp)
+	relBase := oldDir
+	// filepath.Rel is lexical, but os.Chdir resolves ".." from the physical cwd.
+	// Use the physical base when this test is run through a symlinked checkout.
+	if realOldDir, err := filepath.EvalSymlinks(oldDir); err == nil {
+		relBase = realOldDir
+	}
+	rel, err := filepath.Rel(relBase, tmp)
 	if err != nil {
 		// If GOROOT is on C: volume and tmp is on the D: volume, there
 		// is no relative path between them, so skip that test case.
