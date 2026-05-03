@@ -446,8 +446,8 @@ var (
 	//	go.dev/issue/30488
 	//	go.dev/issue/56784
 	//	go.dev/issue/77917
-	macOS  = macVersionFlag{13, 0, 0}
-	macSDK = macVersionFlag{26, 2, 0}
+	macOS  = macVersionFlag{11, 0, 0}
+	macSDK = macVersionFlag{12, 1, 0}
 )
 
 func (ctxt *Link) domacho() {
